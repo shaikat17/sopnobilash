@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
-const index = () => {
+const Login = () => {
   return (
     <View>
-      <Text>index</Text>
+      <Text>Login</Text>
     </View>
   )
 }
-export default index
+export default Login
