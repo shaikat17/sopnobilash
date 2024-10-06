@@ -9,6 +9,7 @@ import Input from "../components/Input";
 import Icon from "../assets/icons";
 import { useRef, useState } from "react";
 import Button from "../components/Button";
+import { supabase } from "../lib/superbase";
 const Login = () => {
     const router = useRouter();
     const emailRef = useRef('')
@@ -21,7 +22,23 @@ const Login = () => {
             Alert.alert('Login', 'please enter email and password')
             return
         }
-        // api call
+      // api call
+      let email = emailRef.current.trim()
+      let password = passwordRef.current.trim()
+
+      setLoading(true)
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      setLoading(false)
+      console.log('Error: ', error)
+
+      if (error) {
+        Alert.alert('Login', error.message)
+      }
     }
   return (
     <ScreenWrapper bg="white">

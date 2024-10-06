@@ -7,6 +7,5 @@ export const hp = percentage => {
 }
 
 export const wp = percentage => {
-    console.log(percentage, deviceWidth)
     return (percentage * deviceWidth) / 100;
 }

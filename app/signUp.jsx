@@ -9,6 +9,7 @@ import Input from "../components/Input";
 import Icon from "../assets/icons";
 import { useRef, useState } from "react";
 import Button from "../components/Button";
+import { supabase } from "../lib/superbase";
 const SignUp = () => {
     const router = useRouter();
     const nameRef = useRef('')
@@ -22,7 +23,28 @@ const SignUp = () => {
             Alert.alert('Sign Up', 'please enter all fields')
             return
         }
-        // api call
+      // api call
+      let name = nameRef.current.trim()
+      let email = emailRef.current.trim()
+      let password = passwordRef.current.trim()
+
+      setLoading(true)
+
+      const { data: {session}, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name
+          }
+        }
+      })
+
+      setLoading(false)
+
+      if (error) {
+        Alert.alert('Sign Up', error.message)
+      }
     }
   return (
     <ScreenWrapper bg="white">
